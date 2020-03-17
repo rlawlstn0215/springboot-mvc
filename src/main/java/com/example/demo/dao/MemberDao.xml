@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.MemberDao">
+	<insert id="join" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `member`
+		SET regDate = NOW(),
+		userId = #{userId},
+		userPw = #{userPw},
+		`name` = #{name},
+		`email` = #{email},
+		outStatus = 0
+	</insert>
+	
+	<select id="findByMemberId" resultType="com.example.demo.dto.Member">
+		SELECT *
+		FROM `member`
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="findByIdAndPw" resultType="com.example.demo.dto.Member">
+		SELECT *
+		FROM `member`
+		WHERE userId = #{userId}
+		AND userPw = #{userPw}
+	</select>
+	
+	<select id="findByNameAndEmail" resultType="com.example.demo.dto.Member">
+		SELECT *
+		FROM `member`
+		WHERE `name` = #{name}
+		AND `email` = #{email}
+	</select>
+	
+	<select id="findByUserIdAndNameAndEmail" resultType="com.example.demo.dto.Member">
+		SELECT *
+		FROM `member`
+		WHERE userId = #{userId} 
+		AND `name` = #{name}
+		AND `email` = #{email}
+	</select>
+	
+	<update id="updateUserPw">
+		UPDATE `member`
+		SET userPw = #{userPw}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findById" resultType="com.example.demo.dto.Member">
+		SELECT *
+		FROM `member`
+		WHERE id = #{id}
+	</select>
+	
+	<update id="doModify">
+		UPDATE `member`
+		SET 
+		`name` = #{name},
+		userPw = #{userPw},
+		`email` = #{email}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="secession" parameterType="integer">
+		UPDATE `member`
+		SET outStatus = 1
+		WHERE id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ReplyDao">
+	<insert id="writeReply" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO articleReply
+		SET regDate = NOW(),
+		articleId = #{articleId},
+		memberId = #{memberId},
+		`body` = #{body}
+	</insert>
+	
+	<select id="getRepliesFrom" resultMap="articleReply">
+		SELECT AR.*, M.name AS extra_writerName
+		FROM articleReply AS AR
+		LEFT JOIN `member` AS M
+		ON AR.memberId = M.id
+		WHERE AR.articleId = #{articleId}
+		AND AR.id >= #{from}
+		ORDER BY AR.id ASC
+	</select>
+	
+	<select id="getReply" resultMap="articleReply">
+		SELECT *
+		FROM articleReply
+		WHERE id = #{id}
+	</select>
+	
+	<delete id="deleteReply">
+		DELETE 
+		FROM articleReply
+		WHERE id = #{id}
+	</delete>
+	
+	<update id="modifyReply">
+		UPDATE articleReply
+		<set>
+			<if test="body != null">`body` = #{body},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<resultMap type="com.example.demo.dto.ArticleReply" id="articleReply">
+		<id property="id" column="id"/>
+		<id property="regDate" column="regDate"/>
+		<id property="articleId" column="articleId"/>
+		<id property="memberId" column="memberId"/>
+		<id property="body" column="body"/>
+		<association property="extra" javaType="map">
+			<id property="writerName" column="extra_writerName"/>
+		</association>
+	</resultMap>
+</mapper>
