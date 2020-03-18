@@ -27,4 +27,5 @@ public interface BoardDao {
 
 	public void deleteArticle(@Param("id") int id);
 
+	public void increaseArticleHit(@Param("id") int id);
 }

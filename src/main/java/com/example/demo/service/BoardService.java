@@ -21,6 +21,6 @@ public interface BoardService {
 
 	public void getMemberUserId(int id);
 
-
+	public void increaseArticleHit(int id);
 
 }

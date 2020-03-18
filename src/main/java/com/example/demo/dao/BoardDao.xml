@@ -62,6 +62,12 @@
 		FROM article
 		WHERE id = #{id}
 	</delete>
+
+	<update id="increaseArticleHit">
+		UPDATE `article`
+		SET hit = hit + 1
+		WHERE id = #{id}
+	</update>
 	
 	<resultMap type="com.example.demo.dto.Article" id="article">
 		<id property="id" column="id"/>

@@ -105,6 +105,10 @@ public class BoardServiceImpl implements BoardService{
 		boardDao.getMemberUserId(id);
 	}
 
+	@Override
+	public void increaseArticleHit(int id) {
+		boardDao.increaseArticleHit(id);
+	}
 
 
 }

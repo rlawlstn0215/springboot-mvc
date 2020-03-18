@@ -61,9 +61,11 @@ public class ArticleController {
 		}
 		
 		Article article = boardService.findByArticleId(id);
+		Board board = boardService.findByBoardId(article.getBoardId());
 		boardService.getMemberUserId(id);
 		
 		md.addAttribute("article", article);
+		md.addAttribute("board", board);
 		
 		return "article/modify";
 	}
@@ -153,9 +155,11 @@ public class ArticleController {
 			
 			return "common/js";
 		}
-		
+		Board board = boardService.findByBoardId(article.getBoardId());
+
 		md.addAttribute("article", article);
-		
+		md.addAttribute("board", board);
+
 		return "article/detail";
 	}
 	
